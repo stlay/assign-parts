@@ -1,0 +1,6 @@
+%h1= "#{@band.name}の演奏会一覧"
+
+%ul
+  - @concerts.each do |c|
+    %li
+      %a{href:"/#{@band.path}/#{c.path}"}= c.title

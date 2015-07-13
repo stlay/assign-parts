@@ -1,0 +1,6 @@
+%h1= '団体一覧'
+
+%ul
+  - @bands.each do |b|
+    %li
+      %a{href:"/#{b.path}"}= b.name

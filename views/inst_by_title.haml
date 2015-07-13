@@ -1,0 +1,14 @@
+%h1= "#{@band.name} #{@concert.title} 楽器別"
+
+%table
+  %thead
+    %tr
+      %td= ''
+      - @titles.each do |t|
+        %th= t.name
+  %tbody
+    - instruments(@titles).each do |i|
+      %tr
+        %th= i
+        - @titles.each do |t|
+          %td= inst_by_title(t, i)

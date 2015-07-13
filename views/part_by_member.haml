@@ -1,0 +1,14 @@
+%h1= "#{@band.name} #{@concert.title} メンバー別"
+
+%table
+  %thead
+    %tr
+      %td= ''
+      - @members.each do |m|
+        %th= m.name
+  %tbody
+    - @titles.each do |t|
+      %tr
+        %th= t.name
+        - @members.each do |m|
+          %td= part_by_member(t, m)

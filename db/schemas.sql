@@ -11,7 +11,7 @@ CREATE TABLE concerts (
   path VARCHAR(255) NOT NULL,
   band_id INT(11) NOT NULL,
   PRIMARY KEY (id),
-  UNIQUE(id, path),
+  UNIQUE(band_id, path),
   FOREIGN KEY (band_id) REFERENCES bands(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

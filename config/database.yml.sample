@@ -1,0 +1,12 @@
+production:
+  adapter: mysql2
+  host: localhost
+  username: user
+  password: pass
+  database: dbname
+development:
+  adapter: mysql2
+  host: localhost
+  username: user
+  password: pass
+  database: dbname
