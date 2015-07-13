@@ -9,16 +9,18 @@ CREATE TABLE concerts (
   id INT(11) NOT NULL AUTO_INCREMENT,
   title VARCHAR(255) NOT NULL,
   path VARCHAR(255) NOT NULL,
+  band_id INT(11) NOT NULL,
   PRIMARY KEY (id),
-  UNIQUE(id, path)
+  UNIQUE(id, path),
+  FOREIGN KEY (band_id) REFERENCES bands(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE titles (
   id INT(11) NOT NULL AUTO_INCREMENT,
   name VARCHAR(255) NOT NULL,
   concert_id INT(11) NOT NULL,
-  order TINYINT UNSIGNED(2),
-  act TINYINT UNSIGEND(2),
+  `order` TINYINT(2) UNSIGNED,
+  act TINYINT(2) UNSIGNED,
   PRIMARY KEY (id),
   FOREIGN KEY (concert_id) REFERENCES concerts(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -49,8 +51,8 @@ CREATE TABLE instruments_members (
   id INT(11) NOT NULL AUTO_INCREMENT,
   instrument_id INT(11) NOT NULL,
   member_id INT(11) NOT NULL,
-  PRIMARY KEY (id)
-  FOREIGN KEY (instrument_id) REFERENCES instruments(id) ON DELETE CASCADE
+  PRIMARY KEY (id),
+  FOREIGN KEY (instrument_id) REFERENCES instruments(id) ON DELETE CASCADE,
   FOREIGN KEY (member_id) REFERENCES members(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -58,7 +60,7 @@ CREATE TABLE bands_members (
   id INT(11) NOT NULL AUTO_INCREMENT,
   band_id INT(11) NOT NULL,
   member_id INT(11) NOT NULL,
-  PRIMARY KEY (id)
-  FOREIGN KEY (band_id) REFERENCES bands(id) ON DELETE CASCADE
+  PRIMARY KEY (id),
+  FOREIGN KEY (band_id) REFERENCES bands(id) ON DELETE CASCADE,
   FOREIGN KEY (member_id) REFERENCES members(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
