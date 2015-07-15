@@ -4,3 +4,15 @@
   - @concerts.each do |c|
     %li
       %a{href:"/#{@band.path}/#{c.path}"}= c.title
+
+%form{action: "/#{@band.path}", method: 'POST'}
+  %p
+    演奏会情報の追加
+  %p
+    %label
+      名前:
+      %input{type: 'text', name: 'concert_name', value: ''}
+    %label
+      URL の表示名:
+      %input{type: 'text', name: 'concert_path', value: ''}
+    %input{type: 'submit', name: 'OK'}

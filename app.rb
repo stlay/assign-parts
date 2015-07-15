@@ -25,6 +25,13 @@ module AssignPart
       haml :concert_list
     end
 
+    post '/:band' do
+      # TODO
+      @band = Band.find_by_path params[:band]
+      @concerts = @band.concerts
+      haml :concert_list
+    end
+
     get '/:band/:concert' do
       @band = Band.find_by_path params[:band]
       @concert = @band.concerts.find_by_path params[:concert]
@@ -36,6 +43,16 @@ module AssignPart
       else # includes 'member'
         haml :part_by_member
       end
+    end
+
+    get '/:band/:concert/parts' do
+      # TODO
+      'hoge'
+    end
+
+    get '/:band/:concert/assigns' do
+      # TODO
+      'fuga'
     end
 
     helpers do

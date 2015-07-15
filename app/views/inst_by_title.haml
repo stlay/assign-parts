@@ -18,3 +18,5 @@
         %th= i
         - @titles.each do |t|
           %td= t.members_playing(i).join('<br />')
+
+= haml :"shared/edit_link"
