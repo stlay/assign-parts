@@ -48,7 +48,7 @@ module AssignPart
           if pi.class == Part
             pi.name
           else # Instrument
-            "#{pi.name} (#{pi.part.name})"
+            pi.name_with_instrument
           end
         end
       end
