@@ -2,35 +2,14 @@ require 'sinatra/base'
 require 'sass'
 require 'haml'
 require 'coffee-script'
-require 'sinatra/activerecord'
 
-class Band < ActiveRecord::Base
-  has_many :concerts
-  has_and_belongs_to_many :members
-end
-class Concert < ActiveRecord::Base
-  belongs_to :band
-  has_many :titles, -> { includes :parts }
-end
-class Title < ActiveRecord::Base
-  belongs_to :concert
-  has_many :parts, -> { includes :instruments }
-end
-class Part < ActiveRecord::Base
-  belongs_to :title
-  has_many :instruments, -> { includes :members }
-end
-class Instrument < ActiveRecord::Base
-  belongs_to :part
-  has_and_belongs_to_many :members
-end
-class Member < ActiveRecord::Base
-  has_and_belongs_to_many :bands
-  has_and_belongs_to_many :instruments
-end
+require './app/models'
 
 module AssignPart
+  # Routing Controller
   class App < Sinatra::Base
+    set :views, settings.root + '/app/views'
+
     get '/' do
       @bands = Band.all
       haml :band_list
@@ -60,30 +39,18 @@ module AssignPart
     end
 
     helpers do
-      def part_by_member(title, member)
-        insts = title.parts
-                .map(&:instruments)
-                .flatten
-                .select { |i| i.members.include? member }
-        insts.map(&:part).uniq.each do |part|
-          if (part.instruments - insts).empty?
-            insts = insts - part.instruments + [part]
+      def instruments_included_in(titles)
+        titles.map(&:instruments).flatten.map(&:name).uniq
+      end
+
+      def append_part_name_to_inst(parts_and_insts)
+        parts_and_insts.map do |pi|
+          if pi.class == Part
+            pi.name
+          else # Instrument
+            "#{pi.name} (#{pi.part.name})"
           end
         end
-        insts.map(&:name).join('<br />')
-      end
-
-      def instruments(titles)
-        titles.map do |t|
-          t.parts.map do |p|
-            p.instruments.map(&:name)
-          end
-        end.flatten.uniq
-      end
-
-      def inst_by_title(title, inst)
-        insts = title.parts.map { |p| p.instruments.select { |i| i.name == inst } }.flatten
-        insts.map { |i| i.members.map(&:name) }.uniq.join('<br />')
       end
     end
   end

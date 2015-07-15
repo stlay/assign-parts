@@ -13,8 +13,8 @@
       - @titles.each do |t|
         %th= t.name
   %tbody
-    - instruments(@titles).each do |i|
+    - instruments_included_in(@titles).each do |i|
       %tr
         %th= i
         - @titles.each do |t|
-          %td= inst_by_title(t, i)
+          %td= t.members_playing(i).join('<br />')

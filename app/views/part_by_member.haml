@@ -17,4 +17,4 @@
       %tr
         %th= t.name
         - @members.each do |m|
-          %td= part_by_member(t, m)
+          %td= append_part_name_to_inst(t.parts_assigned_to(m)).join('<br />')
