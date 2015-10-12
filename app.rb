@@ -29,7 +29,7 @@ module AssignPart
       @band = Band.find_by_path params[:band]
       @concert = @band.concerts.find_by_path params[:concert]
       @titles = @concert.titles
-      @members = @band.members
+      @members = @concert.members
       case params[:mode]
       when 'inst'
         haml :inst_by_title
