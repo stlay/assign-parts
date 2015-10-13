@@ -56,11 +56,11 @@ CREATE TABLE instruments_members (
   FOREIGN KEY (member_id) REFERENCES members(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE bands_members (
+CREATE TABLE concerts_members (
   id INT(11) NOT NULL AUTO_INCREMENT,
-  band_id INT(11) NOT NULL,
+  concert_id INT(11) NOT NULL,
   member_id INT(11) NOT NULL,
   PRIMARY KEY (id),
-  FOREIGN KEY (band_id) REFERENCES bands(id) ON DELETE CASCADE,
+  FOREIGN KEY (concert_id) REFERENCES concerts(id) ON DELETE CASCADE,
   FOREIGN KEY (member_id) REFERENCES members(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
